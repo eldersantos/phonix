@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Phonix.Encoding;
 
 namespace Phonix
 {
-    internal static class NGram
+    public sealed class NGram : PhoneticEncoder
     {
         public static List<string> GenerateNGram(string name, int n, bool removeSpaces)
         {
@@ -39,5 +40,14 @@ namespace Phonix
             return grams;
         }
 
+        public override string[] GenerateKeys(string word)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GenerateKey(string word)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

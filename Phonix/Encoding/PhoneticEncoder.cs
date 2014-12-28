@@ -1,4 +1,4 @@
-﻿namespace Phonix
+﻿namespace Phonix.Encoding
 {
 
     /// <summary> <code>PhoneticEncoder</code>s generate one or more keys for a given word

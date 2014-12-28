@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using Phonix.Encoding;
+using Phonix.Similarity;
 
 namespace Phonix
 {
@@ -22,9 +20,24 @@ namespace Phonix
       -- 7 If last characters are AY, replace with Y.
       -- 8 If last character is A, remove it.
     * */
-    internal static class NysiiSc
-    {
 
+
+    /// <summary>
+    /// The New York State Identification and Intelligence System Phonetic Code, 
+    /// commonly known as NYSIIS.
+    /// It is used to index words that are pronounced similarly.
+    /// 
+    /// </summary>
+    /// <example>
+    /// Looking for someone's information in a database of people. 
+    /// You think that the person's name sounds like "John Smith", 
+    /// but it is in fact spelled "Jon Smyth"
+    /// You can index the database using the NYSIIS algorithm, 
+    /// then when you go to search use the NYSIIS algorithm again on the input. 
+    /// Both "John Smith" and "Jon Smyth" are indexed as "JAN SNATH"
+    /// </example>
+    public sealed class NysiiSc : PhoneticEncoder, ISimilarity
+    {
         public static void GenerateNysiisKey(string name, out string key, out string fullKey)
         {
             key = string.Empty;
@@ -172,5 +185,43 @@ namespace Phonix
             }
         }
 
+        public override string[] GenerateKeys(string word)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override string GenerateKey(string word)
+        {
+            if (string.IsNullOrEmpty(word)) { return string.Empty; }
+
+            string upperName = word.ToUpper();
+
+            //Let's strip non A-Z characters
+            upperName = Regex.Replace(upperName, "[^A-Z]", string.Empty, RegexOptions.Compiled);
+
+            //step 1
+            TranslateFirstCharacters(ref upperName);
+            //step 2
+            TranslateLastCharacters(ref upperName);
+
+            //step 3
+            string firstCharacter = upperName.Substring(0, 1);
+            string remainingName = upperName.Length > 1 ? upperName.Substring(1) : string.Empty;
+            if (!string.IsNullOrEmpty(remainingName.Trim()))
+            {
+                //step 4
+                TranslateRemaining(ref remainingName);
+
+                //step 6 - 8
+                ReplaceLastCharacter(ref remainingName);
+            }
+            //collapse repeating characters and append first character back on
+            return firstCharacter + SioHelpers.CollapseAdjacentRepeating(remainingName);
+        }
+
+        public bool IsSimilar(string[] words)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

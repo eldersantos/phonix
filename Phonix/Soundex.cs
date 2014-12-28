@@ -1,8 +1,9 @@
 ﻿using System;
+using Phonix.Encoding;
+using Phonix.Similarity;
 
 namespace Phonix
 {
-
     /// <summary> Encoder implementing the phonetic algorithm "Soundex".
     /// Soundex is described in Donald Knuth's
     /// <i>The Art of Computer Programming</i>, Vol.3.
@@ -12,7 +13,7 @@ namespace Phonix
     /// </seealso>
     /// <seealso cref="DoubleMetaphone">
     /// </seealso>
-    public sealed class Soundex : PhoneticEncoder
+    public sealed class Soundex : PhoneticEncoder, ISimilarity
     {
         private readonly bool _full;
         private readonly int _length;
@@ -39,22 +40,19 @@ namespace Phonix
         /// will become 'K530'. If <code>true</code>, this encoder will encode
         /// the first character too, i.e. 'Knuth' will become '2530'.
         /// </param>
-        public Soundex(bool full)
-            : this(full, 4)
+        public Soundex(bool full): this(full, 4)
         {
         }
 
         /// <summary> Constructs an original Soundex encoder which generates keys of given length.</summary>
         /// <param name="length">the length of the keys to generate.
         /// </param>
-        public Soundex(int length)
-            : this(false, length)
+        public Soundex(int length): this(false, length)
         {
         }
 
         /// <summary> Constructs an original Soundex encoder which generates keys of length 4.</summary>
-        public Soundex()
-            : this(false, 4)
+        public Soundex(): this(false, 4)
         {
         }
 
@@ -62,6 +60,24 @@ namespace Phonix
         public override string ToString()
         {
             return "Soundex_" + _full + "_" + _length;
+        }
+
+        public bool IsSimilar(string[] words)
+        {
+            string[] encoders = new string[words.Length];
+
+            for (var i = 0; i < words.Length; i++)
+            {
+                encoders[i] = GenerateKey(words[i]);
+                if (i != 0)
+                {
+                    if (encoders[i] != encoders[i - 1])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         private static char GETCode(char c)

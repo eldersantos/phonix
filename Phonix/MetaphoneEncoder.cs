@@ -1,4 +1,5 @@
 ﻿using System;
+using Phonix.Encoding;
 
 namespace Phonix
 {

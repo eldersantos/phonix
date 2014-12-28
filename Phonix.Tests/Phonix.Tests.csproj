@@ -50,7 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CaverphoneTests.cs" />
     <Compile Include="DoubleMetaphoneTests.cs" />
+    <Compile Include="MatchRatingApproachTests.cs" />
+    <Compile Include="MetaphoneTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

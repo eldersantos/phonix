@@ -1,11 +1,18 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
+using Phonix.Encoding;
+using Phonix.Similarity;
 
 namespace Phonix
 {
-    internal static class MatchRatingC
+    /// <summary>
+    /// The match rating approach (MRA) is a phonetic algorithm developed by Western Airlines in 1977
+    /// It performs well with names containing the letter "y"
+    /// MRA does not perform well with encoded names that differ in length by more than 2
+    /// </summary>
+    public sealed class MatchRatingApproach:PhoneticEncoder, ISimilarity
     {
-
         public static bool GenerateMatchRating(string name, out string key)
         {
             key = string.Empty;
@@ -22,7 +29,7 @@ namespace Phonix
             //Delete all vowels unless the vowel begins the word
             if (upperName.Length > 1)
             {
-                string start = upperName[0].ToString();
+                string start = upperName[0].ToString(CultureInfo.InvariantCulture);
                 upperName = start + SioHelpers.Vowels.Replace(upperName.Substring(1), string.Empty);
             }
 
@@ -40,7 +47,6 @@ namespace Phonix
 
             return true;
         }
-
 
         internal static string CollapseRepeatingConsonants(string name)
         {
@@ -61,9 +67,7 @@ namespace Phonix
             return sb.ToString();
         }
 
-
-
-        internal static int MatchRatingCompute(string name1, string name2)
+        public int MatchRatingCompute(string name1, string name2)
         {
             //0 is an impossible rating, it will mean unrated
             if (string.IsNullOrEmpty(name1) || string.IsNullOrEmpty(name2)) { return 0; }
@@ -158,6 +162,44 @@ namespace Phonix
             if (sum == 12) { return 2; }
 
             return 0;
+        }
+
+        public override string[] GenerateKeys(string word)
+        {
+            return !string.IsNullOrEmpty(word) ? new[] { GenerateKey(word) } : EmptyKeys;
+        }
+
+        public override string GenerateKey(string word)
+        {
+            if (string.IsNullOrEmpty(word)) { return string.Empty; }
+
+            string upperName = word.ToUpper();
+            //Let's strip non A-Z characters
+            upperName = Regex.Replace(upperName, "[^A-Z]", string.Empty, RegexOptions.Compiled);
+
+            //Delete all vowels unless the vowel begins the word
+            if (upperName.Length > 1)
+            {
+                string start = upperName[0].ToString(CultureInfo.InvariantCulture);
+                upperName = start + SioHelpers.Vowels.Replace(upperName.Substring(1), string.Empty);
+            }
+
+            //Remove the second consonant of any double consonants present
+            upperName = CollapseRepeatingConsonants(upperName);
+
+            //Reduce codex to 6 letters by joining the first 3 and last 3 letters only
+            int length = upperName.Length;
+            if (length > 6)
+            {
+                upperName = upperName.Substring(0, 3) + upperName.Substring(length - 3, 3);
+            }
+
+            return upperName;
+        }
+
+        public bool IsSimilar(string[] words)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

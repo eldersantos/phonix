@@ -3,45 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Phonix.Encoding;
+using Phonix.Similarity;
 
 namespace Phonix
 {
-    internal static class CaverPhone
+    public sealed class CaverPhone : PhoneticEncoder, ISimilarity
     {
         static readonly Regex Alpha = new Regex("[^a-z]", RegexOptions.Compiled);
         static readonly Regex LowerVowel = new Regex("[aeiou]", RegexOptions.Compiled);
-
-        public static bool GenerateCaverphone(string name, out string key)
-        {
-            key = string.Empty;
-
-            if (string.IsNullOrEmpty(name)) { return false; }
-
-            key = name.ToLower();
-            key = Alpha.Replace(key, string.Empty);
-
-            if (key == string.Empty) { return false; }
-
-            //this was new in revised 2004
-            //remove ending e
-            if (key.EndsWith("e"))
-            {
-                key = key.Substring(0, key.Length - 1);
-            }
-
-
-            key = TranslateStartsWith(key);
-            key = TranslateRemaining(key);
-
-            //append 10 "1"s at the end
-            key = key + "1111111111";
-
-            //in 2004 revised caverphone they changed from 6 to 10 characters
-            //take the first 10 characters as the code
-            key = key.Substring(0, 10);
-
-            return true;
-        }
 
         private static string TranslateRemaining(string key)
         {
@@ -258,6 +228,54 @@ namespace Phonix
             }
 
             return name;
+        }
+
+        public override string[] GenerateKeys(string word)
+        {
+            return !string.IsNullOrEmpty(word) ? new[] { GenerateKey(word) } : EmptyKeys;
+        }
+
+        public override string GenerateKey(string word)
+        {
+            if (string.IsNullOrEmpty(word)) { return string.Empty; }
+
+            var key = word.ToLower();
+            key = Alpha.Replace(key, string.Empty);
+
+            if (key == string.Empty) { return string.Empty; }
+
+            //this was new in revised 2004
+            //remove ending e
+            if (key.EndsWith("e"))
+            {
+                key = key.Substring(0, key.Length - 1);
+            }
+
+            key = TranslateStartsWith(key);
+            key = TranslateRemaining(key);
+
+            //append 10 "1"s at the end
+            key = key + "1111111111";
+
+            //in 2004 revised caverphone they changed from 6 to 10 characters
+            //take the first 10 characters as the code
+            return key.Substring(0, 10);
+        }
+
+        public bool IsSimilar(string[] words)
+        {
+            string[] encoders = new string[words.Length];
+
+            for (var i = 0; i < words.Length; i++)
+            {
+                encoders[i] = GenerateKey(words[i]);
+                if (i == 0) continue;
+                if (encoders[i] != encoders[i - 1])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

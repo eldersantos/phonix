@@ -37,18 +37,16 @@
   <ItemGroup>
     <Compile Include="Caverphone.cs" />
     <Compile Include="DoubleMetaphone.cs" />
-    <Compile Include="Exact.cs" />
-    <Compile Include="LowerCase.cs" />
-    <Compile Include="MatchRatingC.cs" />
+    <Compile Include="MatchRatingApproach.cs" />
     <Compile Include="Metaphone.cs" />
     <Compile Include="MetaphoneEncoder.cs" />
     <Compile Include="Ngram.cs" />
     <Compile Include="NysiiSc.cs" />
-    <Compile Include="PhoneticEncoder.cs" />
+    <Compile Include="Encoding\PhoneticEncoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Similarity\ISimilarity.cs" />
     <Compile Include="SIOHelpers.cs" />
     <Compile Include="Soundex.cs" />
-    <Compile Include="UpperCase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

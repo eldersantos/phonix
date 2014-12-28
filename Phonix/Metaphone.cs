@@ -1,4 +1,7 @@
-﻿namespace Phonix
+﻿using System.Text;
+using Phonix.Similarity;
+
+namespace Phonix
 {
 
     /// <summary> Encoder implementing the phonetic algorithm "Metaphone".
@@ -10,7 +13,7 @@
     /// </seealso>
     /// <seealso cref="DoubleMetaphone">
     /// </seealso>
-    public sealed class Metaphone : MetaphoneEncoder
+    public sealed class Metaphone : MetaphoneEncoder, ISimilarity
     {
 // ReSharper disable InconsistentNaming
         private static readonly string[] GN_KN_PN_WR_AE = new [] { "GN", "KN", "PN", "WR", "AE" };
@@ -42,14 +45,30 @@
         /// <summary> Constructs a Metaphone encoder which generates keys with
         /// maximal length 4.
         /// </summary>
-        public Metaphone(): base(4)
-        {
-        }
+        public Metaphone(): base(4) {}
 
         /// <summary> Returns a <tt>String</tt> identifying the algorithm.</summary>
         public override string ToString()
         {
             return "Metaphone_" + MaxLength;
+        }
+
+        public bool IsSimilar(string[] words)
+        {
+            string[] encoders = new string[words.Length];
+
+            for (var i = 0; i < words.Length; i++)
+            {
+                encoders[i] = GenerateKey(words[i]);
+                if (i != 0)
+                {
+                    if (encoders[i] != encoders[i - 1])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         /// <summary> Returns the encoding of the given word.</summary>
@@ -73,7 +92,7 @@
             if (string.IsNullOrEmpty(word))
                 return "";
 
-            System.Text.StringBuilder buffer = new System.Text.StringBuilder(word.Length);
+            StringBuilder buffer = new StringBuilder(word.Length);
 
             word = word.ToUpper();
 

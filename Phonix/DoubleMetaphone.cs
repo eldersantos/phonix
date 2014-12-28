@@ -1,8 +1,9 @@
 ﻿using System;
+using Phonix.Similarity;
 
 namespace Phonix
 {
-    public sealed class DoubleMetaphone : MetaphoneEncoder
+    public sealed class DoubleMetaphone : MetaphoneEncoder, ISimilarity
     {
 // ReSharper disable InconsistentNaming
         private static readonly string[] GN_KN_PN_WR_PS = new [] { "GN", "KN", "PN", "WR", "PS" };
@@ -123,6 +124,22 @@ namespace Phonix
         public override string ToString()
         {
             return "DoubleMetaphone_" + MaxLength;
+        }
+
+        public bool IsSimilar(string[] words)
+        {
+            string[] encoders = new string[words.Length];
+
+            for (var i = 0; i < words.Length; i++)
+            {
+                encoders[i] = GenerateKey(words[i]);
+                if (i == 0) continue;
+                if (encoders[i] != encoders[i - 1])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void Add(string main)

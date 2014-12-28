@@ -1,16 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Phonix.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class MetaphoneTests
     {
-        public TestContext TestContext { get; set; }
-
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfi", "Spotifi" };
         readonly Metaphone _generator = new Metaphone();
 
-        [TestMethod]
+        [Test]
         public void Should_Validate_Similar_Words()
         {
             Assert.IsTrue(_generator.IsSimilar(Words));

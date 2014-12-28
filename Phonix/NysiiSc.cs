@@ -36,7 +36,7 @@ namespace Phonix
     /// then when you go to search use the NYSIIS algorithm again on the input. 
     /// Both "John Smith" and "Jon Smyth" are indexed as "JAN SNATH"
     /// </example>
-    public sealed class NysiiSc : PhoneticEncoder, ISimilarity
+    internal sealed class NysiiSc : PhoneticEncoder, ISimilarity
     {
         public static void GenerateNysiisKey(string name, out string key, out string fullKey)
         {
@@ -185,12 +185,12 @@ namespace Phonix
             }
         }
 
-        public override string[] GenerateKeys(string word)
+        public override string[] BuildKeys(string word)
         {
             throw new System.NotImplementedException();
         }
 
-        public override string GenerateKey(string word)
+        public override string BuildKey(string word)
         {
             if (string.IsNullOrEmpty(word)) { return string.Empty; }
 

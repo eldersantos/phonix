@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using Phonix.Encoding;
@@ -164,12 +165,12 @@ namespace Phonix
             return 0;
         }
 
-        public override string[] GenerateKeys(string word)
+        public override string[] BuildKeys(string word)
         {
-            return !string.IsNullOrEmpty(word) ? new[] { GenerateKey(word) } : EmptyKeys;
+            return !string.IsNullOrEmpty(word) ? new[] { BuildKey(word) } : EmptyKeys;
         }
 
-        public override string GenerateKey(string word)
+        public override string BuildKey(string word)
         {
             if (string.IsNullOrEmpty(word)) { return string.Empty; }
 
@@ -199,7 +200,27 @@ namespace Phonix
 
         public bool IsSimilar(string[] words)
         {
-            throw new System.NotImplementedException();
+            if (words.Length < 2)
+            {
+                throw new ArgumentException("Should be more than 1 word", "words");
+            }
+
+            int[] encoders = new int[words.Length - 1];
+
+            for (var i = 0; i < words.Length - 1; i++)
+            {
+                encoders[i] = MatchRatingCompute(words[i + 1], words[i]);
+            }
+
+            for (int i = 0; i < encoders.Length - 1; i++)
+            {
+                if (encoders[i] != encoders[i + 1])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

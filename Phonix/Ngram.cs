@@ -4,7 +4,7 @@ using Phonix.Encoding;
 
 namespace Phonix
 {
-    public sealed class NGram : PhoneticEncoder
+    internal sealed class NGram
     {
         public static List<string> GenerateNGram(string name, int n, bool removeSpaces)
         {
@@ -38,16 +38,6 @@ namespace Phonix
                 //grams.Add(name);
             }
             return grams;
-        }
-
-        public override string[] GenerateKeys(string word)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string GenerateKey(string word)
-        {
-            throw new NotImplementedException();
         }
     }
 }

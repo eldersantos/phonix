@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Phonix.Encoding;
 using Phonix.Similarity;
 
@@ -230,12 +226,12 @@ namespace Phonix
             return name;
         }
 
-        public override string[] GenerateKeys(string word)
+        public override string[] BuildKeys(string word)
         {
-            return !string.IsNullOrEmpty(word) ? new[] { GenerateKey(word) } : EmptyKeys;
+            return !string.IsNullOrEmpty(word) ? new[] { BuildKey(word) } : EmptyKeys;
         }
 
-        public override string GenerateKey(string word)
+        public override string BuildKey(string word)
         {
             if (string.IsNullOrEmpty(word)) { return string.Empty; }
 
@@ -268,7 +264,7 @@ namespace Phonix
 
             for (var i = 0; i < words.Length; i++)
             {
-                encoders[i] = GenerateKey(words[i]);
+                encoders[i] = BuildKey(words[i]);
                 if (i == 0) continue;
                 if (encoders[i] != encoders[i - 1])
                 {

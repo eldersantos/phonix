@@ -132,7 +132,7 @@ namespace Phonix
 
             for (var i = 0; i < words.Length; i++)
             {
-                encoders[i] = GenerateKey(words[i]);
+                encoders[i] = BuildKey(words[i]);
                 if (i == 0) continue;
                 if (encoders[i] != encoders[i - 1])
                 {
@@ -176,9 +176,9 @@ namespace Phonix
         /// </param>
         /// <returns> the encoding of the word. This is never <code>null</code>.
         /// </returns>
-        public override string GenerateKey(string word)
+        public override string BuildKey(string word)
         {
-            string[] result = GenerateKeys(word);
+            string[] result = BuildKeys(word);
             return (result.Length > 0) ? result[0] : "";
         }
 
@@ -190,7 +190,7 @@ namespace Phonix
         /// <returns> an array of the encodings of the word.
         /// This is never <code>null</code>.
         /// </returns>
-        public override string[] GenerateKeys(string word)
+        public override string[] BuildKeys(string word)
         {
             lock (this)
             {

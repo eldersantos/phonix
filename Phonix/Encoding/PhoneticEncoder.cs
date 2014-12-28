@@ -18,7 +18,7 @@
         /// at index zero. The array is never <code>null</code>, but of length
         /// zero, if the given word is <code>null</code> or the empty-string.
         /// </returns>
-        public abstract string[] GenerateKeys(string word);
+        public abstract string[] BuildKeys(string word);
 
         /// <summary> Generates a key. If the underlying algorithm creates more
         /// than one key, the default key, i.e. the most important key, is returned.
@@ -30,7 +30,7 @@
         /// the given word is <code>null</code> or the empty-string,
         /// then the empty-string is returned.
         /// </returns>
-        public abstract string GenerateKey(string word);
+        public abstract string BuildKey(string word);
 
         public static readonly string[] EmptyKeys = new string[0];
     }

@@ -26,17 +26,18 @@ How to use
 Below there are examples on how to use the MatchRating, DoubleMetaphone and Soundex algorithms:
 
 ```
+
+    using Phonix;
+    
     public class MatchRatingApproachTests
     {
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfy","Sputfi" };
 
         readonly MatchRatingApproach _generator = new MatchRatingApproach();
-
-
-        
+       
         public void Should_Be_Similar()
         {
-            Assert.IsTrue(_generator.IsSimilar(Words));
+            Console.Writeline(_generator.IsSimilar(Words));
         }
     }
     
@@ -47,22 +48,20 @@ Below there are examples on how to use the MatchRating, DoubleMetaphone and Soun
 
         readonly Soundex _generator = new Soundex();
 
-        [Test]
         public void Should_Be_Similar()
         {
-            Assert.IsTrue(_generator.IsSimilar(Words));
-            Assert.IsTrue(_generator.IsSimilar(Words2));
+            Console.Writeline(_generator.IsSimilar(Words));
+            Console.Writeline(_generator.IsSimilar(Words2));
         }
     }
     
-     public class DoubleMetaphoneTests
+    public class DoubleMetaphoneTests
     {
         private static readonly string[] Words = new[] {"Spotify", "Spotfy", "Sputfi", "Spotifi"};
         private static readonly string[] Words2 = new[] { "United Air Lines", "United Aire Lines", "Unitid Air Line"};
 
         readonly DoubleMetaphone _generator =  new DoubleMetaphone();
-        
-        [Test]
+              
         public void Should_Return_Same_Keys()
         {
             string[][] keys =  new string[Words.Length][];
@@ -77,7 +76,7 @@ Below there are examples on how to use the MatchRating, DoubleMetaphone and Soun
                 {
                     if (n > 0)
                     {
-                        Assert.AreEqual(keys[n][m], keys[n - 1][m]);
+                        Console.Writeline(keys[n][m], keys[n - 1][m]);
                     }
                 }
             }
@@ -95,7 +94,7 @@ Below there are examples on how to use the MatchRating, DoubleMetaphone and Soun
                     Console.WriteLine(keys2[n][m]);
                     if (n > 0)
                     {
-                        Assert.AreEqual(keys2[n][m], keys2[n - 1][m]);
+                        Console.Writeline(keys2[n][m], keys2[n - 1][m]);
                     }
                 }
             }

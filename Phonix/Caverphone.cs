@@ -4,6 +4,10 @@ using Phonix.Similarity;
 
 namespace Phonix
 {
+    /// <summary>
+    /// Phonetic algorithm created by David Hood
+    /// For more infor see: <a href="http://en.wikipedia.org/wiki/Caverphone">http://en.wikipedia.org/wiki/Caverphone</a>
+    /// </summary>
     public sealed class CaverPhone : PhoneticEncoder, ISimilarity
     {
         static readonly Regex Alpha = new Regex("[^a-z]", RegexOptions.Compiled);
@@ -226,6 +230,11 @@ namespace Phonix
             return name;
         }
 
+        /// <summary>
+        /// Returns a list of Keys generated from the string passed as parameter
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
         public override string[] BuildKeys(string word)
         {
             return !string.IsNullOrEmpty(word) ? new[] { BuildKey(word) } : EmptyKeys;

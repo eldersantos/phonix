@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Phonix.Tests
 {
     [TestFixture]
     public class DoubleMetaphoneTests
     {
-
         private static readonly string[] Words = new[] {"Spotify", "Spotfy", "Sputfi", "Spotifi"};
-        private static readonly string[] Words2 = new[] { "Airbnb", "Airbandb"};
+        private static readonly string[] Words2 = new[] { "United Air Lines", "United Aire Lines", "Unitid Air Line"};
 
         readonly DoubleMetaphone _generator =  new DoubleMetaphone();
         
@@ -41,6 +41,7 @@ namespace Phonix.Tests
             {
                 for (int m = 0; m < keys2[n].Length; m++)
                 {
+                    Console.WriteLine(keys2[n][m]);
                     if (n > 0)
                     {
                         Assert.AreEqual(keys2[n][m], keys2[n - 1][m]);

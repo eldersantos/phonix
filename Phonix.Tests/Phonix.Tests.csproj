@@ -54,6 +54,7 @@
     <Compile Include="MatchRatingApproachTests.cs" />
     <Compile Include="MetaphoneTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoundexTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phonix\Phonix.csproj">

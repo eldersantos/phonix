@@ -30,7 +30,7 @@ namespace Phonix
             //Delete all vowels unless the vowel begins the word
             if (upperName.Length > 1)
             {
-                string start = upperName[0].ToString(CultureInfo.InvariantCulture);
+                string start = upperName[0].ToString();
                 upperName = start + SioHelpers.Vowels.Replace(upperName.Substring(1), string.Empty);
             }
 
@@ -181,7 +181,7 @@ namespace Phonix
             //Delete all vowels unless the vowel begins the word
             if (upperName.Length > 1)
             {
-                string start = upperName[0].ToString(CultureInfo.InvariantCulture);
+                string start = upperName[0].ToString();
                 upperName = start + SioHelpers.Vowels.Replace(upperName.Substring(1), string.Empty);
             }
 

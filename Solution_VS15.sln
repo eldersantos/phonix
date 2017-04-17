@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26114.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Phonix", "Phonix\Phonix.xproj", "{6FF0F4DD-1756-48F5-8883-04E1E7A062C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonix", "Phonix\Phonix.csproj", "{6FF0F4DD-1756-48F5-8883-04E1E7A062C6}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Phonix.Tests", "Phonix.Tests\Phonix.Tests.xproj", "{94F09B96-665F-4BB2-8917-A27FE10D49AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonix.Tests", "Phonix.Tests\Phonix.Tests.csproj", "{94F09B96-665F-4BB2-8917-A27FE10D49AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

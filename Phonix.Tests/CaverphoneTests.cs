@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace Phonix.Tests
 {
-    [TestFixture]
+
     public class CaverphoneTests
     {
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfi", "Spotifi" };
         readonly CaverPhone _generator = new CaverPhone();
 
-        [Test]
+        [Fact]
         public void Should_Return_Correct_Key()
         {
             string[][] keys = new string[Words.Length][];
@@ -23,7 +23,7 @@ namespace Phonix.Tests
                 {
                     if (n > 0)
                     {
-                        Assert.AreEqual(keys[n][m], keys[n - 1][m]);
+                        Assert.Equal(keys[n][m], keys[n - 1][m]);
                     }
                 }
             }

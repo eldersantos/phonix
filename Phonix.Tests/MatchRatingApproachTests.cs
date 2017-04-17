@@ -1,8 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace Phonix.Tests
 {
-    [TestFixture]
     public class MatchRatingApproachTests
     {
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfy","Sputfi" };
@@ -10,10 +9,10 @@ namespace Phonix.Tests
         readonly MatchRatingApproach _generator = new MatchRatingApproach();
 
 
-        [Test]
+        [Fact]
         public void Should_Be_Similar()
         {
-            Assert.IsTrue(_generator.IsSimilar(Words));
+            Assert.True(_generator.IsSimilar(Words));
         }
     }
 }

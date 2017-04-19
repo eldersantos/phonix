@@ -1,6 +1,8 @@
 Welcome to Phonix
 ======
 
+![Build Status](https://spboyer.visualstudio.com/_apis/public/build/definitions/ee34cf34-44bc-4b9a-8e6e-ffb6c85259b2/3/badge)
+
 A Phonetic open source libray for .NET, no dependencies, it is pure C# code ;)
 
 Now with support for .NET Core (thanks @ysilvestrov)

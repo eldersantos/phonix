@@ -1,17 +1,16 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace Phonix.Tests
 {
-    [TestFixture]
     public class MetaphoneTests
     {
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfi", "Spotifi" };
         readonly Metaphone _generator = new Metaphone();
 
-        [Test]
+        [Fact]
         public void Should_Validate_Similar_Words()
         {
-            Assert.IsTrue(_generator.IsSimilar(Words));
+            Assert.True(_generator.IsSimilar(Words));
         }
     }
 }

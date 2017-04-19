@@ -1,8 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace Phonix.Tests
 {
-    [TestFixture]
     public class SoundexTests
     {
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfi", "Spotifi" };
@@ -10,11 +9,11 @@ namespace Phonix.Tests
 
         readonly Soundex _generator = new Soundex();
 
-        [Test]
+        [Fact]
         public void Should_Be_Similar()
         {
-            Assert.IsTrue(_generator.IsSimilar(Words));
-            Assert.IsTrue(_generator.IsSimilar(Words2));
+            Assert.True(_generator.IsSimilar(Words));
+            Assert.True(_generator.IsSimilar(Words2));
         }
     }
 }

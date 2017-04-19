@@ -1,17 +1,16 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace Phonix.Tests
 {
-    [TestFixture]
     public class DoubleMetaphoneTests
     {
         private static readonly string[] Words = new[] {"Spotify", "Spotfy", "Sputfi", "Spotifi"};
         private static readonly string[] Words2 = new[] { "United Air Lines", "United Aire Lines", "Unitid Air Line"};
 
         readonly DoubleMetaphone _generator =  new DoubleMetaphone();
-        
-        [Test]
+
+        [Fact]
         public void Should_Return_Same_Keys()
         {
             string[][] keys =  new string[Words.Length][];
@@ -26,7 +25,7 @@ namespace Phonix.Tests
                 {
                     if (n > 0)
                     {
-                        Assert.AreEqual(keys[n][m], keys[n - 1][m]);
+                        Assert.Equal(keys[n][m], keys[n - 1][m]);
                     }
                 }
             }
@@ -44,7 +43,7 @@ namespace Phonix.Tests
                     Console.WriteLine(keys2[n][m]);
                     if (n > 0)
                     {
-                        Assert.AreEqual(keys2[n][m], keys2[n - 1][m]);
+                        Assert.Equal(keys2[n][m], keys2[n - 1][m]);
                     }
                 }
             }

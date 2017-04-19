@@ -3,7 +3,7 @@ Welcome to Phonix
 
 A Phonetic open source libray for .NET, no dependencies, it is pure C# code ;)
 
-Now with support for .NET Core (thanks @ysilvestrov)
+Now with support for .NET Core (thanks @ysilvestrov) and VS 2017 (thanks to @spboyer)
 
 Latest Version
 --------------

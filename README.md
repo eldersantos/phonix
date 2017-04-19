@@ -8,11 +8,11 @@ Now with support for .NET Core (thanks @ysilvestrov)
 Latest Version
 --------------
 
-The quickest way to get the latest release of Phonix is to add it to your project using 
+The quickest way to get the latest release of Phonix is to add it to your project using
 NuGet (<http://nuget.org/List/Packages/Phonix>).
 
 Implemented algorithms
-----------------
+----------------------
 
 Today Phonix implements the following algorithms:
 
@@ -23,26 +23,26 @@ Today Phonix implements the following algorithms:
 * Soundex [http://en.wikipedia.org/wiki/Soundex] - Is a phonetic algorithm for indexing names by sound, as pronounced in English.
 
 How to use
----------------
+----------
 
 Below there are examples on how to use the MatchRating, DoubleMetaphone and Soundex algorithms:
 
-```
+```csharp
 
     using Phonix;
-    
+
     public class MatchRatingApproachTests
     {
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfy","Sputfi" };
 
         readonly MatchRatingApproach _generator = new MatchRatingApproach();
-       
+
         public void Should_Be_Similar()
         {
             Console.Writeline(_generator.IsSimilar(Words));
         }
     }
-    
+
     public class SoundexTests
     {
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfi", "Spotifi" };
@@ -56,14 +56,14 @@ Below there are examples on how to use the MatchRating, DoubleMetaphone and Soun
             Console.Writeline(_generator.IsSimilar(Words2));
         }
     }
-    
+
     public class DoubleMetaphoneTests
     {
         private static readonly string[] Words = new[] {"Spotify", "Spotfy", "Sputfi", "Spotifi"};
         private static readonly string[] Words2 = new[] { "United Air Lines", "United Aire Lines", "Unitid Air Line"};
 
         readonly DoubleMetaphone _generator =  new DoubleMetaphone();
-              
+
         public void Should_Return_Same_Keys()
         {
             string[][] keys =  new string[Words.Length][];

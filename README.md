@@ -1,6 +1,8 @@
 Welcome to Phonix
 ======
 
+![Build Status](https://spboyer.visualstudio.com/_apis/public/build/definitions/ee34cf34-44bc-4b9a-8e6e-ffb6c85259b2/3/badge)
+
 A Phonetic open source libray for .NET, no dependencies, it is pure C# code ;)
 
 Now with support for .NET Core (thanks @ysilvestrov) and VS 2017 (thanks to @spboyer)
@@ -8,11 +10,11 @@ Now with support for .NET Core (thanks @ysilvestrov) and VS 2017 (thanks to @spb
 Latest Version
 --------------
 
-The quickest way to get the latest release of Phonix is to add it to your project using 
+The quickest way to get the latest release of Phonix is to add it to your project using
 NuGet (<http://nuget.org/List/Packages/Phonix>).
 
 Implemented algorithms
-----------------
+----------------------
 
 Today Phonix implements the following algorithms:
 
@@ -23,26 +25,26 @@ Today Phonix implements the following algorithms:
 * Soundex [http://en.wikipedia.org/wiki/Soundex] - Is a phonetic algorithm for indexing names by sound, as pronounced in English.
 
 How to use
----------------
+----------
 
 Below there are examples on how to use the MatchRating, DoubleMetaphone and Soundex algorithms:
 
-```
+```csharp
 
     using Phonix;
-    
+
     public class MatchRatingApproachTests
     {
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfy","Sputfi" };
 
         readonly MatchRatingApproach _generator = new MatchRatingApproach();
-       
+
         public void Should_Be_Similar()
         {
             Console.Writeline(_generator.IsSimilar(Words));
         }
     }
-    
+
     public class SoundexTests
     {
         private static readonly string[] Words = new[] { "Spotify", "Spotfy", "Sputfi", "Spotifi" };
@@ -56,14 +58,14 @@ Below there are examples on how to use the MatchRating, DoubleMetaphone and Soun
             Console.Writeline(_generator.IsSimilar(Words2));
         }
     }
-    
+
     public class DoubleMetaphoneTests
     {
         private static readonly string[] Words = new[] {"Spotify", "Spotfy", "Sputfi", "Spotifi"};
         private static readonly string[] Words2 = new[] { "United Air Lines", "United Aire Lines", "Unitid Air Line"};
 
         readonly DoubleMetaphone _generator =  new DoubleMetaphone();
-              
+
         public void Should_Return_Same_Keys()
         {
             string[][] keys =  new string[Words.Length][];

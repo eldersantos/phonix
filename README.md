@@ -1,7 +1,7 @@
 Welcome to Phonix
 ======
 
-https://travis-ci.org/eldersantos/phonix.svg?branch=master
+[![Build Status](https://travis-ci.org/eldersantos/phonix.svg?branch=master)](https://travis-ci.org/eldersantos/phonix)
 
 A Phonetic open source libray for .NET, no dependencies, it is pure C# code ;)
 

@@ -126,16 +126,16 @@ namespace Phonix
             //8 If last character is A, remove it.
             if (remainingName.Length == 0) { return; }
 
-            if (remainingName.EndsWith("S"))
+            if (remainingName.EndsWith("S", System.StringComparison.Ordinal))
             {
                 remainingName = remainingName.Length > 0 ? remainingName.Substring(0, remainingName.Length - 1) : string.Empty;
             }
-            else if (remainingName.EndsWith("AY"))
+            else if (remainingName.EndsWith("AY", System.StringComparison.Ordinal))
             {
                 remainingName = remainingName.Length > 0 ? remainingName.Substring(0, remainingName.Length - 2) : string.Empty;
                 remainingName += "Y";
             }
-            else if (remainingName.EndsWith("A"))
+            else if (remainingName.EndsWith("A", System.StringComparison.Ordinal))
             {
                 remainingName = remainingName.Length > 0 ? remainingName.Substring(0, remainingName.Length - 1) : string.Empty;
             }
@@ -146,27 +146,27 @@ namespace Phonix
             //Translate first characters of name: MAC → MCC, KN → N, K → C, PH → FF, PF → FF, SCH → SSS
             int nameLength = name.Length;
 
-            if (name.StartsWith("MAC"))
+            if (name.StartsWith("MAC", System.StringComparison.Ordinal))
             {
                 name = "MCC" + name.Substring(3 < nameLength ? 3 : nameLength);
             }
-            else if (name.StartsWith("KN"))
+            else if (name.StartsWith("KN", System.StringComparison.Ordinal))
             {
                 name = "N" + name.Substring(2 < nameLength ? 2 : nameLength);
             }
-            else if (name.StartsWith("K"))
+            else if (name.StartsWith("K", System.StringComparison.Ordinal))
             {
                 name = "C" + name.Substring(1 < nameLength ? 1 : nameLength);
             }
-            else if (name.StartsWith("PH"))
+            else if (name.StartsWith("PH", System.StringComparison.Ordinal))
             {
                 name = "FF" + name.Substring(2 < nameLength ? 2 : nameLength);
             }
-            else if (name.StartsWith("PF"))
+            else if (name.StartsWith("PF", System.StringComparison.Ordinal))
             {
                 name = "FF" + name.Substring(2 < nameLength ? 2 : nameLength);
             }
-            else if (name.StartsWith("SCH"))
+            else if (name.StartsWith("SCH", System.StringComparison.Ordinal))
             {
                 name = "SSS" + name.Substring(3 < nameLength ? 3 : nameLength);
             }
@@ -175,11 +175,13 @@ namespace Phonix
         private static void TranslateLastCharacters(ref string name)
         {
             //Translate last characters of name: EE → Y, IE → Y, DT, RT, RD, NT, ND → D
-            if (name.EndsWith("EE") || name.EndsWith("IE"))
+            if (name.EndsWith("EE", System.StringComparison.Ordinal) || name.EndsWith("IE", System.StringComparison.Ordinal))
             {
                 name = name.Substring(0, name.Length - 2) + "Y";
             }
-            else if (name.EndsWith("DT") || name.EndsWith("RT") || name.EndsWith("RD") || name.EndsWith("NT") || name.EndsWith("ND"))
+            else if (name.EndsWith("DT", System.StringComparison.Ordinal) || name.EndsWith("RT", System.StringComparison.Ordinal) 
+                     || name.EndsWith("RD", System.StringComparison.Ordinal) || name.EndsWith("NT", System.StringComparison.Ordinal) 
+                     || name.EndsWith("ND", System.StringComparison.Ordinal))
             {
                 name = name.Substring(0, name.Length - 2) + "D";
             }

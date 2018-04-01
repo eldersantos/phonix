@@ -117,7 +117,7 @@ namespace Phonix
 
             //this was new in revised 2004
             //if the name ends in w replace the final w with 3
-            if (key.EndsWith("w"))
+            if (key.EndsWith("w", System.StringComparison.Ordinal))
             {
                 key = key.Substring(0, key.Length - 1) + "3";
             }
@@ -137,7 +137,7 @@ namespace Phonix
 
             //this was new in revised 2004
             //if the name ends in r replace the replace final r with 3
-            if (key.EndsWith("r"))
+            if (key.EndsWith("r", System.StringComparison.Ordinal))
             {
                 key = key.Substring(0, key.Length - 1) + "3";
             }
@@ -154,7 +154,7 @@ namespace Phonix
 
             //this was new in revised 2004
             //if the name ends in r replace the replace final r with 3
-            if (key.EndsWith("l"))
+            if (key.EndsWith("l", System.StringComparison.Ordinal))
             {
                 key = key.Substring(0, key.Length - 1) + "3";
             }
@@ -174,7 +174,7 @@ namespace Phonix
 
             //this was new in revised 2004
             //if the name ends in 3 replace the replace final 3 with A
-            if (key.EndsWith("3"))
+            if (key.EndsWith("3", System.StringComparison.Ordinal))
             {
                 key = key.Substring(0, key.Length - 1) + "A";
             }
@@ -198,31 +198,31 @@ namespace Phonix
             //mb make it m2
             int nameLength = name.Length;
 
-            if (name.StartsWith("cough"))
+            if (name.StartsWith("cough", System.StringComparison.Ordinal))
             {
                 name = "cou2f" + name.Substring(5 < nameLength ? 5 : nameLength);
             }
-            else if (name.StartsWith("rough"))
+            else if (name.StartsWith("rough", System.StringComparison.Ordinal))
             {
                 name = "rou2f" + name.Substring(5 < nameLength ? 5 : nameLength);
             }
-            else if (name.StartsWith("tough"))
+            else if (name.StartsWith("tough", System.StringComparison.Ordinal))
             {
                 name = "tou2f" + name.Substring(5 < nameLength ? 5 : nameLength);
             }
-            else if (name.StartsWith("trough")) //this was new in revised 2004
+            else if (name.StartsWith("trough", System.StringComparison.Ordinal)) //this was new in revised 2004
             {
                 name = "trou2f" + name.Substring(6 < nameLength ? 6 : nameLength);
             }
-            else if (name.StartsWith("enough"))
+            else if (name.StartsWith("enough", System.StringComparison.Ordinal))
             {
                 name = "enou2f" + name.Substring(6 < nameLength ? 6 : nameLength);
             }
-            else if (name.StartsWith("gn"))
+            else if (name.StartsWith("gn", System.StringComparison.Ordinal))
             {
                 name = "2n" + name.Substring(2 < nameLength ? 2 : nameLength);
             }
-            else if (name.StartsWith("mb"))
+            else if (name.StartsWith("mb", System.StringComparison.Ordinal))
             {
                 name = "m2" + name.Substring(2 < nameLength ? 2 : nameLength);
             }
@@ -251,7 +251,7 @@ namespace Phonix
 
             //this was new in revised 2004
             //remove ending e
-            if (key.EndsWith("e"))
+            if (key.EndsWith("e", System.StringComparison.Ordinal))
             {
                 key = key.Substring(0, key.Length - 1);
             }

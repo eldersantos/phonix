@@ -102,11 +102,18 @@ namespace Phonix
                 bool found = false;
                 for (int j = 0; j < large.Length; j++)
                 {
-                    if (small[i] == large[j])
+					try
                     {
-                        small = small.Remove(i, 1);
-                        large = large.Remove(j, 1);
-                        found = true;
+						if (small[i] == large[j])
+						{
+							small = small.Remove(i, 1);
+							large = large.Remove(j, 1);
+							found = true;
+						}
+					}
+                    catch (Exception e)
+                    {
+                        continue;
                     }
                 }
 

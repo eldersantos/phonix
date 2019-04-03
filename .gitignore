@@ -186,3 +186,6 @@ FakesAssemblies/
 /Phonix/.vs
 /Phonix/project.lock.json
 /Phonix.Tests/project.lock.json
+
+# Mac OS
+.DS_STORE

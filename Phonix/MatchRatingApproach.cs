@@ -111,7 +111,7 @@ namespace Phonix
 							found = true;
 						}
 					}
-                    catch (Exception e)
+                    catch
                     {
                         continue;
                     }

@@ -14,6 +14,13 @@
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <ReleaseVersion>1.0.5</ReleaseVersion>
+    <Version>1.0.2</Version>
+    <Authors>eldersantos</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>http://eldersantos.github.io/phonix/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/eldersantos/phonix</RepositoryUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageTags>phonetic spell checker metaphone soundex ngram</PackageTags>
   </PropertyGroup>
 
 </Project>

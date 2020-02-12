@@ -19,7 +19,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>http://eldersantos.github.io/phonix/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/eldersantos/phonix</RepositoryUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/eldersantos/phonix/blob/master/License.md</PackageLicenseUrl>
     <PackageTags>phonetic spell checker metaphone soundex ngram</PackageTags>
   </PropertyGroup>
 

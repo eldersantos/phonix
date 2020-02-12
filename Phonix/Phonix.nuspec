@@ -11,5 +11,8 @@
     <description>$description$</description>
     <copyright>Copyright 2014</copyright>
 	<tags>phonetic, spell checker, metaphone</tags>
+	<license type="expression">MIT</license>
+	<repository type="git" url="https://github.com/eldersantos/phonix.git" />
+	<description>A Phonetic open source libray for .NET, no dependencies, it is pure C# code ;)</dedication>
   </metadata>
 </package>

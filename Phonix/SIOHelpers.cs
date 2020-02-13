@@ -22,11 +22,11 @@ namespace Phonix
         /// <returns>Collapsed string</returns>
         public static string CollapseAdjacentRepeating(string value)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            char prev = ' ';
-            bool first = true;
-            foreach (char c in value)
+            var prev = ' ';
+            var first = true;
+            foreach (var c in value)
             {
                 if (c != prev || first)
                 {
@@ -74,7 +74,7 @@ namespace Phonix
         /// <returns>Reversed string</returns>
         public static string ReverseString(string value)
         {
-            char[] valArray = value.ToCharArray();
+            var valArray = value.ToCharArray();
             Array.Reverse(valArray);
             return new string(valArray);
         }
@@ -96,23 +96,23 @@ namespace Phonix
                 throw new ArgumentException("Neither string can be null for Levenshtein Distance calculations.");
             }
 
-            int s1L = s1.Length;
-            int s2L = s2.Length;
-            int[,] d = new int[s1L, s2L];
+            var s1L = s1.Length;
+            var s2L = s2.Length;
+            var d = new int[s1L, s2L];
 
-            for (int i = 0; i < s1L; i++)
+            for (var i = 0; i < s1L; i++)
             {
                 d[i, 0] = i; // deletion
             }
 
-            for (int j = 0; j < s2L; j++)
+            for (var j = 0; j < s2L; j++)
             {
                 d[0, j] = j; // insertion
             }
 
-            for (int j = 1; j < s2L; j++)
+            for (var j = 1; j < s2L; j++)
             {
-                for (int i = 1; i < s1L; i++)
+                for (var i = 1; i < s1L; i++)
                 {
                     if (s1[i - 1] == s2[j - 1])
                     {
@@ -120,12 +120,12 @@ namespace Phonix
                     }
                     else
                     {
-                        int deletion = d[i - 1, j] + 1;
-                        int insertion = d[i, j - 1] + 1;
-                        int substitution = d[i - 1, j - 1] + 1;
+                        var deletion = d[i - 1, j] + 1;
+                        var insertion = d[i, j - 1] + 1;
+                        var substitution = d[i - 1, j - 1] + 1;
 
-                        int min1 = Math.Min(deletion, insertion);
-                        int min2 = Math.Min(min1, substitution);
+                        var min1 = Math.Min(deletion, insertion);
+                        var min2 = Math.Min(min1, substitution);
 
                         d[i, j] = min2;
                     }
@@ -164,19 +164,7 @@ namespace Phonix
             s1 = s1.ToLower();
             s2 = s2.ToLower();
 
-            int val = 0;
-            for (int i = 0; i < s1.Length; i++)
-            {
-                //val += (s1[i] != s2[i]) ? 1 : 0;
-
-                //incrementing is probably faster
-                if (s1[i].Equals(s2[i]))
-                {
-                    val++;
-                }
-            }
-
-            return val;
+            return s1.Where((t, i) => t.Equals(s2[i])).Count();
         }
 
 
@@ -194,11 +182,11 @@ namespace Phonix
             s1 = s1.ToLower();
             s2 = s2.ToLower();
 
-            List<string> s1BiGrams = NGram.GenerateNGram(s1, 2, true);
-            List<string> s2BiGrams = NGram.GenerateNGram(s2, 2, true);
+            var s1BiGrams = NGram.GenerateNGram(s1, 2, true);
+            var s2BiGrams = NGram.GenerateNGram(s2, 2, true);
 
             //intersecting members
-            List<string> intersects = s1BiGrams.Intersect(s2BiGrams).ToList();
+            var intersects = s1BiGrams.Intersect(s2BiGrams).ToList();
 
             //(2 x IntersectingCNT) / (total added bigrams)
             return (float)(2 * intersects.Count) / (float)(s2BiGrams.Count + s1BiGrams.Count);

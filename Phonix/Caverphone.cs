@@ -15,7 +15,7 @@ namespace Phonix
 
         private static string TranslateRemaining(string key)
         {
-            int nameLength = key.Length;
+            var nameLength = key.Length;
             //Replace
             //cq with 2q
             key = key.Replace("cq", "2q");
@@ -196,7 +196,7 @@ namespace Phonix
             //If the name starts with trough make it trou2f
             //gn make it 2n
             //mb make it m2
-            int nameLength = name.Length;
+            var nameLength = name.Length;
 
             if (name.StartsWith("cough", System.StringComparison.Ordinal))
             {
@@ -269,7 +269,7 @@ namespace Phonix
 
         public bool IsSimilar(string[] words)
         {
-            string[] encoders = new string[words.Length];
+            var encoders = new string[words.Length];
 
             for (var i = 0; i < words.Length; i++)
             {

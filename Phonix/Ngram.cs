@@ -12,7 +12,7 @@ namespace Phonix
                 throw new ArgumentException("NGram size must be greater than 0.");
             }
 
-            List<string> grams = new List<string>();
+            var grams = new List<string>();
 
             //if the name is null, empty, or if we're removing spaces and it is only spaces then return an empty list
             if (string.IsNullOrEmpty(name) || (removeSpaces && string.IsNullOrEmpty(name.Trim()))) { return grams; }
@@ -23,19 +23,12 @@ namespace Phonix
                 name = name.Replace(" ", string.Empty);
             }
 
-
-            if (n < name.Length)
+            if (n >= name.Length) return grams;
+            for (var i = 0; (i + n) <= name.Length; i++)
             {
-                for (int i = 0; (i + n) <= name.Length; i++)
-                {
-                    grams.Add(name.Substring(i, n));
-                }
+                grams.Add(name.Substring(i, n));
             }
-            else
-            {   //really not sure what to do here if the length is less than the required q gram size
 
-                //grams.Add(name);
-            }
             return grams;
         }
     }

@@ -44,7 +44,7 @@ namespace Phonix
             fullKey = string.Empty;
             if (string.IsNullOrEmpty(name)) { return; }
 
-            string upperName = name.ToUpper();
+            var upperName = name.ToUpper();
 
             //Let's strip non A-Z characters
             upperName = Regex.Replace(upperName, "[^A-Z]", string.Empty, RegexOptions.Compiled);
@@ -55,8 +55,8 @@ namespace Phonix
             TranslateLastCharacters(ref upperName);
 
             //step 3
-            string firstCharacter = upperName.Substring(0, 1);
-            string remainingName = upperName.Length > 1 ? upperName.Substring(1) : string.Empty;
+            var firstCharacter = upperName.Substring(0, 1);
+            var remainingName = upperName.Length > 1 ? upperName.Substring(1) : string.Empty;
             if (!string.IsNullOrEmpty(remainingName.Trim()))
             {
                 //step 4
@@ -101,13 +101,13 @@ namespace Phonix
 
             remainingName = HPreNon.Replace(remainingName, delegate(Match match)
             {
-                string v = match.ToString();
+                var v = match.ToString();
                 return v.Substring(0, 1);
             });
 
             remainingName = HSufNon.Replace(remainingName, delegate(Match match)
             {
-                string v = match.ToString();
+                var v = match.ToString();
                 return v.Substring(0, 1);
             });
 
@@ -144,7 +144,7 @@ namespace Phonix
         private static void TranslateFirstCharacters(ref string name)
         {
             //Translate first characters of name: MAC → MCC, KN → N, K → C, PH → FF, PF → FF, SCH → SSS
-            int nameLength = name.Length;
+            var nameLength = name.Length;
 
             if (name.StartsWith("MAC", System.StringComparison.Ordinal))
             {
@@ -196,7 +196,7 @@ namespace Phonix
         {
             if (string.IsNullOrEmpty(word)) { return string.Empty; }
 
-            string upperName = word.ToUpper();
+            var upperName = word.ToUpper();
 
             //Let's strip non A-Z characters
             upperName = Regex.Replace(upperName, "[^A-Z]", string.Empty, RegexOptions.Compiled);
@@ -207,16 +207,15 @@ namespace Phonix
             TranslateLastCharacters(ref upperName);
 
             //step 3
-            string firstCharacter = upperName.Substring(0, 1);
-            string remainingName = upperName.Length > 1 ? upperName.Substring(1) : string.Empty;
-            if (!string.IsNullOrEmpty(remainingName.Trim()))
-            {
-                //step 4
-                TranslateRemaining(ref remainingName);
+            var firstCharacter = upperName.Substring(0, 1);
+            var remainingName = upperName.Length > 1 ? upperName.Substring(1) : string.Empty;
+            if (string.IsNullOrEmpty(remainingName.Trim()))
+                return firstCharacter + SioHelpers.CollapseAdjacentRepeating(remainingName);
+            //step 4
+            TranslateRemaining(ref remainingName);
 
-                //step 6 - 8
-                ReplaceLastCharacter(ref remainingName);
-            }
+            //step 6 - 8
+            ReplaceLastCharacter(ref remainingName);
             //collapse repeating characters and append first character back on
             return firstCharacter + SioHelpers.CollapseAdjacentRepeating(remainingName);
         }

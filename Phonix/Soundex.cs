@@ -64,17 +64,15 @@ namespace Phonix
 
         public bool IsSimilar(string[] words)
         {
-            string[] encoders = new string[words.Length];
+            var encoders = new string[words.Length];
 
             for (var i = 0; i < words.Length; i++)
             {
                 encoders[i] = BuildKey(words[i]);
-                if (i != 0)
+                if (i == 0) continue;
+                if (encoders[i] != encoders[i - 1])
                 {
-                    if (encoders[i] != encoders[i - 1])
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;
@@ -131,13 +129,17 @@ namespace Phonix
         public override string BuildKey(string word)
         {
             if (_length <= 0)
-                return "";
+            {
+                return string.Empty;
+            }
 
             if (string.IsNullOrEmpty(word))
-                return "";
+            {
+                return string.Empty;
+            }
 
-            char[] chars = word.ToCharArray();
-            System.Text.StringBuilder result = new System.Text.StringBuilder(_length);
+            var chars = word.ToCharArray();
+            var result = new System.Text.StringBuilder(_length);
 
             int inIdx, outIdx;
             char prevDigit;
@@ -155,7 +157,7 @@ namespace Phonix
 
             while (inIdx < chars.Length && outIdx < _length)
             {
-                char c = GETCode(chars[inIdx]);
+                var c = GETCode(chars[inIdx]);
 
                 if (c != '*' && c != prevDigit)
                 {
@@ -168,7 +170,9 @@ namespace Phonix
             }
 
             for (; outIdx < _length; outIdx++)
+            {
                 result.Append('0');
+            }
 
             return result.ToString();
         }

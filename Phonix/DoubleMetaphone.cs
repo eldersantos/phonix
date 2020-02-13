@@ -128,7 +128,7 @@ namespace Phonix
 
         public bool IsSimilar(string[] words)
         {
-            string[] encoders = new string[words.Length];
+            var encoders = new string[words.Length];
 
             for (var i = 0; i < words.Length; i++)
             {
@@ -155,12 +155,16 @@ namespace Phonix
             {
                 _hasAlternate = true;
                 if (!alternate.Equals(" "))
+                {
                     _secondaryBuffer.Append(alternate);
+                }
             }
             else
             {
                 if (main.Length > 0 && !main.Equals(" "))
+                {
                     _secondaryBuffer.Append(main);
+                }
             }
         }
 
@@ -170,7 +174,7 @@ namespace Phonix
         }
 
         /// <summary> Returns an encoding of the given word, that is based on the most
-        /// commonly heard pronounciation of the word in the U.S.A.
+        /// commonly heard pronunciation of the word in the U.S.A.
         /// </summary>
         /// <param name="word">the word to encode.
         /// </param>
@@ -178,12 +182,12 @@ namespace Phonix
         /// </returns>
         public override string BuildKey(string word)
         {
-            string[] result = BuildKeys(word);
+            var result = BuildKeys(word);
             return (result.Length > 0) ? result[0] : "";
         }
 
         /// <summary> Returns the encodings of the given word. The first is based on the most
-        /// commonly heard pronounciation of the word in the U.S.A.
+        /// commonly heard pronunciation of the word in the U.S.A.
         /// </summary>
         /// <param name="word">the word to encode.
         /// </param>
@@ -195,7 +199,9 @@ namespace Phonix
             lock (this)
             {
                 if (string.IsNullOrEmpty(word))
+                {
                     return EmptyKeys;
+                }
 
                 _primaryBuffer = new System.Text.StringBuilder(word.Length);
                 _secondaryBuffer = new System.Text.StringBuilder(word.Length);
@@ -203,12 +209,12 @@ namespace Phonix
 
                 word = word.ToUpper();
 
-                int length = word.Length;
-                int last = length - 1;
+                var length = word.Length;
+                var last = length - 1;
 
-                bool isSlavoGermanic = IsSlavoGermanic(word);
+                var isSlavoGermanic = IsSlavoGermanic(word);
 
-                int n = 0;
+                var n = 0;
 
                 // skip these when at start of word
                 if (Match(word, 0, GN_KN_PN_WR_PS))
@@ -826,18 +832,13 @@ namespace Phonix
 
                 if (MaxLength < 0)
                 {
-                    if (_hasAlternate)
-                        return new[] { _primaryBuffer.ToString(), _secondaryBuffer.ToString() };
-                    return new[] { _primaryBuffer.ToString() };
+                    return _hasAlternate ? new[] { _primaryBuffer.ToString(), _secondaryBuffer.ToString() } : new[] { _primaryBuffer.ToString() };
                 }
                 // limit the length of the resulting strings
-                int primaryLength = Math.Min(MaxLength, _primaryBuffer.Length);
-                if (_hasAlternate)
-                {
-                    int secondaryLength = Math.Min(MaxLength, _secondaryBuffer.Length);
-                    return new[] { _primaryBuffer.ToString().Substring(0, (primaryLength) - (0)), _secondaryBuffer.ToString().Substring(0, (secondaryLength) - (0)) };
-                }
-                return new[] { _primaryBuffer.ToString().Substring(0, (primaryLength) - (0)) };
+                var primaryLength = Math.Min(MaxLength, _primaryBuffer.Length);
+                if (!_hasAlternate) return new[] {_primaryBuffer.ToString().Substring(0, (primaryLength) - (0))};
+                var secondaryLength = Math.Min(MaxLength, _secondaryBuffer.Length);
+                return new[] { _primaryBuffer.ToString().Substring(0, (primaryLength) - (0)), _secondaryBuffer.ToString().Substring(0, (secondaryLength) - (0)) };
             }
         }
 

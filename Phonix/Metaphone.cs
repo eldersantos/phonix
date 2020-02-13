@@ -55,7 +55,7 @@ namespace Phonix
 
         public bool IsSimilar(string[] words)
         {
-            string[] encoders = new string[words.Length];
+            var encoders = new string[words.Length];
 
             for (var i = 0; i < words.Length; i++)
             {
@@ -92,7 +92,7 @@ namespace Phonix
             if (string.IsNullOrEmpty(word))
                 return "";
 
-            StringBuilder buffer = new StringBuilder(word.Length);
+            var buffer = new StringBuilder(word.Length);
 
             word = word.ToUpper();
 
@@ -105,12 +105,12 @@ namespace Phonix
             if (Match(word, 0, WH))
                 word = "W" + word.Substring(2);
 
-            int length = word.Length;
-            int last = length - 1;
+            var length = word.Length;
+            var last = length - 1;
 
-            for (int n = 0; n < length && (MaxLength < 0 || (buffer.Length < MaxLength)); n++)
+            for (var n = 0; n < length && (MaxLength < 0 || (buffer.Length < MaxLength)); n++)
             {
-                char c = word[n];
+                var c = word[n];
                 if (c != 'C' && n > 0 && Match(word, n - 1, c))
                     continue;
 
@@ -163,7 +163,7 @@ namespace Phonix
 
 
                     case 'G':
-                        bool silent = Match(word, n + 1, 'H') && !IsVowel(word, n + 2);
+                        var silent = Match(word, n + 1, 'H') && !IsVowel(word, n + 2);
 
                         if (n > 0)
                         {
@@ -303,7 +303,7 @@ namespace Phonix
                 return buffer.ToString();
             }
             // limit the length of the resulting strings
-            int bufferLength = System.Math.Min(MaxLength, buffer.Length);
+            var bufferLength = System.Math.Min(MaxLength, buffer.Length);
             return buffer.ToString().Substring(0, (bufferLength) - (0));
         }
     }
